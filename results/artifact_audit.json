@@ -1,0 +1,71 @@
+{
+  "status": "passed",
+  "runs": [
+    {
+      "name": "baseline",
+      "status": "passed",
+      "epochs": 60,
+      "parameters": 1084586,
+      "best_epoch": 59,
+      "training_best_accuracy": 0.9404,
+      "reevaluated_accuracy": 0.9404,
+      "checkpoint_sha256": "a714fee983063044a44378dc27b5f4c31b426142c5549533e7a25d15fc536f98",
+      "seconds": 249.7729476999957,
+      "maximum_temperature_c": 83.0,
+      "peak_allocated_mib": 444.66259765625
+    },
+    {
+      "name": "wide_cutout",
+      "status": "passed",
+      "epochs": 160,
+      "parameters": 4327754,
+      "best_epoch": 158,
+      "training_best_accuracy": 0.9632,
+      "reevaluated_accuracy": 0.963,
+      "checkpoint_sha256": "00b21ff2099cea457de713b84d3e1f2fb618874e7628c287681829d5bf73d668",
+      "seconds": 1812.0748524999944,
+      "maximum_temperature_c": 85.0,
+      "peak_allocated_mib": 640.95556640625
+    },
+    {
+      "name": "wide_mixup",
+      "status": "passed",
+      "epochs": 160,
+      "parameters": 4327754,
+      "best_epoch": 158,
+      "training_best_accuracy": 0.9664,
+      "reevaluated_accuracy": 0.9664,
+      "checkpoint_sha256": "844b4b53d9af832abc46db6043d488d41e8a490693765c1779f4efaba541d13b",
+      "seconds": 1812.1868696999736,
+      "maximum_temperature_c": 84.0,
+      "peak_allocated_mib": 642.70654296875
+    }
+  ],
+  "submission": {
+    "status": "passed",
+    "rows": 2000,
+    "columns": [
+      "id",
+      "label"
+    ],
+    "unique_ids": 2000,
+    "matches_sample_order": true,
+    "matches_test_ids": true,
+    "integer_labels_0_to_9": true,
+    "label_counts": [
+      171,
+      217,
+      214,
+      205,
+      198,
+      207,
+      176,
+      211,
+      203,
+      198
+    ],
+    "sha256": "f3f48f7897c76cf2cbf334cbb37cc4aa22f1cd82ec73f5cad2832283ae1114ed"
+  },
+  "prediction_reproduction": "byte-identical",
+  "csv_source_hashes_unchanged": true
+}

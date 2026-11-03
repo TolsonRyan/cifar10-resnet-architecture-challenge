@@ -1,0 +1,4 @@
+name,parameters,best_val_accuracy,best_val_loss,best_epoch,completed_epochs,planned_epochs,elapsed_seconds,status,reevaluated_val_accuracy,reevaluated_val_loss,width,blocks_per_stage,augmentation,optimizer,lr,weight_decay,label_smoothing
+baseline,1084586,0.9404,0.2232603515625,59,60,60,249.7729476999957,completed,0.9404,0.2232528564453125,32,3,reflect crop+flip; cutout=0; mixup=0.0,SGD/Nesterov,0.1,0.0005,0.0
+wide_cutout,4327754,0.9632,0.12927054443359376,158,160,160,1812.0748524999944,completed,0.963,0.12930882568359375,64,3,reflect crop+flip; cutout=16; mixup=0.0,SGD/Nesterov,0.1,0.0005,0.0
+wide_mixup,4327754,0.9664,0.1390349853515625,158,160,160,1812.1868696999736,completed,0.9664,0.13903643798828125,64,3,reflect crop+flip; cutout=16; mixup=0.2,SGD/Nesterov,0.1,0.0005,0.0

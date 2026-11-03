@@ -1,0 +1,35 @@
+{
+  "python": "3.11.4",
+  "torch": "2.6.0+cu124",
+  "cuda": "12.4",
+  "cudnn": 90100,
+  "device": "NVIDIA GeForce RTX 4060 Laptop GPU",
+  "trainable_parameters": 1084586,
+  "normalization": {
+    "mean": [
+      0.4915135944308279,
+      0.4823147097120098,
+      0.44681383799700425
+    ],
+    "std": [
+      0.24705092701492032,
+      0.24347971893366005,
+      0.2615095063426511
+    ]
+  },
+  "split_sha256": "6afd72a56f434e2d60afef811895439a3f41f36360aff26234ecd4e4bfc047a9",
+  "precision": "bfloat16",
+  "cudnn_benchmark": true,
+  "determinism_note": "Seeds/RNG saved; exact bitwise CUDA reproducibility is not guaranteed.",
+  "source_sha256": {
+    "audit_data.py": "240884decedbee03a27bced53bb927f4bf27a91c10839156376204a2235d0189",
+    "check_gpu.py": "2cf9d94e70a2f43f21f8c0f472d480df8bd62f2f142c7492ec4bf2775ca2c3cf",
+    "data.py": "482083ff34bd9916235de3bb1fdff8338b632072309cf0c8d7a7583ebe31de04",
+    "evaluate.py": "a9df70344192c1a92cccc42558540f6cc2b848e1404b92fad54e6e56f58deb1c",
+    "model.py": "8941f85711de8c0f5f0f11090da50d2eebc12f00ac991bb5efc6a8d666a21f1a",
+    "predict.py": "75fa92f95792921eae4539fcc23fe1445125e9d7c554f5a223224b773030918d",
+    "run_pipeline.py": "b1e65a0464522c3f37f33d2a713190f61e86cdf1ea92f232691845d840239b1a",
+    "summarize.py": "487b1c5825239592f3ce77e0ef72dd697b97c3a18adcda1a1673bfea710f0b0e",
+    "train.py": "1946c582500b7ffab15c7fd22b33db7b63b28a57fbc91a534523e4efd21e3dcf"
+  }
+}

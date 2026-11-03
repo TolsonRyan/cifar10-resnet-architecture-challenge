@@ -1,0 +1,40 @@
+{
+  "stage": "local_deliverables_complete_external_actions_pending",
+  "project_brief": "ResNet_Codex_Brief_2026.md",
+  "requested_brief_missing": "Codex_ResNet_Project.md",
+  "data_audit": "passed",
+  "train_images": 50000,
+  "test_images": 2000,
+  "validation_images": 5000,
+  "training_started": true,
+  "validation_accuracy": 0.9664,
+  "kaggle_submitted": false,
+  "environment_location": "D:/CodexEnvs/cifar10-resnet-20261102",
+  "environment_note": "Project .venv junction points to dedicated D: environment due to limited C: space. Existing base Python installations are unchanged.",
+  "rules_source": "User-supplied checked project brief; live Kaggle rules page inaccessible via browser tool.",
+  "candidate_plan": [
+    "baseline",
+    "wide_cutout",
+    "wide_mixup"
+  ],
+  "candidate_plan_note": "All three planned formal experiments completed; budgets were 60, 160, and 160 epochs.",
+  "active_run": null,
+  "best_completed_run": "wide_mixup",
+  "parameters": 4327754,
+  "prediction_reproduction": "byte-identical",
+  "github_remote_created": true,
+  "report_status": "source_and_figures_prepared_pdf_not_compiled",
+  "local_git_initialized": true,
+  "pending_user_actions": [
+    "Kaggle submission decision",
+    "Course registration confirmation",
+    "Report template/format confirmation and PDF compilation"
+  ],
+  "team_members": [
+    "Sheng Tao"
+  ],
+  "kaggle_team_name": "Sheng Tao",
+  "github_connected": true,
+  "github_login": "TolsonRyan",
+  "github_repository": "https://github.com/TolsonRyan/cifar10-resnet-architecture-challenge"
+}

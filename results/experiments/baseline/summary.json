@@ -1,0 +1,11 @@
+{
+  "name": "baseline",
+  "parameters": 1084586,
+  "best_val_accuracy": 0.9404,
+  "best_val_loss": 0.2232603515625,
+  "best_epoch": 59,
+  "completed_epochs": 60,
+  "planned_epochs": 60,
+  "elapsed_seconds": 249.7729476999957,
+  "status": "completed"
+}
