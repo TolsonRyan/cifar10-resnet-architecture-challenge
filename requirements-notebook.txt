@@ -1,0 +1,4 @@
+-r requirements-cuda.txt
+nbformat==5.9.2
+nbclient==0.8.0
+ipykernel==6.25.2

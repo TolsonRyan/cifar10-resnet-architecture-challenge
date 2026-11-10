@@ -1,0 +1,38 @@
+{
+  "checkpoint": "runs\\final_sprint\\deterministic20_seed62026\\final_raw.pt",
+  "checkpoint_sha256": "fb54479395e348483899d2933ee4e15493995342eb86ef2a0fa2fd97d0915350",
+  "parameters": 4804512,
+  "split_sha256": "6afd72a56f434e2d60afef811895439a3f41f36360aff26234ecd4e4bfc047a9",
+  "policies": {
+    "identity": {
+      "clean": {
+        "accuracy": 0.976,
+        "correct": 4880,
+        "count": 5000,
+        "loss": 0.0832156091928482
+      }
+    },
+    "shift_flip10": {
+      "clean": {
+        "accuracy": 0.9786,
+        "correct": 4893,
+        "count": 5000,
+        "loss": 0.0726674497127533
+      }
+    },
+    "grid_flip18": {
+      "clean": {
+        "accuracy": 0.9788,
+        "correct": 4894,
+        "count": 5000,
+        "loss": 0.0719778761267662
+      }
+    }
+  },
+  "epoch": 20,
+  "weight_type": "raw",
+  "hidden_test_accessed": false,
+  "precision": "float32",
+  "caveat": "Reused development split; checkpoint selection is optimistic.",
+  "original_source": "results/final_sprint/deterministic20_raw/evaluation.json"
+}

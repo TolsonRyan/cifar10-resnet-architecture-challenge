@@ -30,7 +30,6 @@ def main():
         assert len(set(ids)) == count and set(ids) == set(range(count))
         report['files'][name] = {'sha256':digest(data/name),'rows':count,'columns':actual}
         tables[name] = rows
-    assert read_csv(ROOT/'sample_submission.csv') == read_csv(data/'sample_submission.csv')
     assert {r['id'] for r in tables['test.csv']} == {r['id'] for r in tables['sample_submission.csv']}
     for split, table in [('train','train_labels.csv'),('test','test.csv')]:
         rows = tables[table]

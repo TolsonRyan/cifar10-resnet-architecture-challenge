@@ -1,0 +1,23 @@
+{
+  "name": "final_sprint/c3_replicate_seed62029",
+  "parameters": 4804512,
+  "total_training_epochs": 420,
+  "best": {
+    "raw": {
+      "accuracy": 0.9764,
+      "loss": 0.08658744506835937,
+      "epoch": 11
+    },
+    "ema": {
+      "accuracy": 0.9764,
+      "loss": 0.08484993286132812,
+      "epoch": 5
+    }
+  },
+  "completed_epochs": 20,
+  "planned_epochs": 20,
+  "elapsed_seconds": 972.1231245000381,
+  "train_count": 45000,
+  "validation_count": 5000,
+  "status": "completed"
+}

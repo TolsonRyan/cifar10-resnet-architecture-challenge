@@ -1,0 +1,23 @@
+{
+  "name": "final_sprint/deterministic20_seed62026",
+  "parameters": 4804512,
+  "total_training_epochs": 420,
+  "best": {
+    "raw": {
+      "accuracy": 0.977,
+      "loss": 0.08420206909179688,
+      "epoch": 9
+    },
+    "ema": {
+      "accuracy": 0.9764,
+      "loss": 0.0830993408203125,
+      "epoch": 16
+    }
+  },
+  "completed_epochs": 20,
+  "planned_epochs": 20,
+  "elapsed_seconds": 1184.1217465000227,
+  "train_count": 45000,
+  "validation_count": 5000,
+  "status": "completed"
+}

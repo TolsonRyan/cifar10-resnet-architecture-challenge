@@ -1,0 +1,179 @@
+{
+  "checkpoint": "runs\\final_sprint\\c3_replicate_seed62029\\final_raw.pt",
+  "parameters": 4804512,
+  "checkpoint_sha256": "04d0607ee5acd66bb8dea6550b1dbb83bdd276f4476e1bcaad415f32929ebf01",
+  "split_sha256": "6afd72a56f434e2d60afef811895439a3f41f36360aff26234ecd4e4bfc047a9",
+  "precision": "float32",
+  "aggregation": "arithmetic mean of probabilities",
+  "policies": {
+    "identity": {
+      "clean": {
+        "accuracy": 0.9762,
+        "correct": 4881,
+        "count": 5000,
+        "loss": 0.0830891877412796
+      },
+      "brightness_0.7": {
+        "accuracy": 0.9742,
+        "correct": 4871,
+        "count": 5000,
+        "loss": 0.0888272225856781
+      },
+      "brightness_1.3": {
+        "accuracy": 0.9732,
+        "correct": 4866,
+        "count": 5000,
+        "loss": 0.09241365641355515
+      },
+      "contrast_0.6": {
+        "accuracy": 0.9744,
+        "correct": 4872,
+        "count": 5000,
+        "loss": 0.08911590278148651
+      },
+      "grayscale": {
+        "accuracy": 0.9374,
+        "correct": 4687,
+        "count": 5000,
+        "loss": 0.25242486596107483
+      },
+      "gaussian_noise_0.05": {
+        "accuracy": 0.8098,
+        "correct": 4049,
+        "count": 5000,
+        "loss": 0.7312919497489929
+      },
+      "gaussian_blur_0.7": {
+        "accuracy": 0.9678,
+        "correct": 4839,
+        "count": 5000,
+        "loss": 0.12805823981761932
+      },
+      "translate_right_down_2": {
+        "accuracy": 0.9756,
+        "correct": 4878,
+        "count": 5000,
+        "loss": 0.08433372527360916
+      },
+      "stress_mean_accuracy": 0.9446285714285716
+    },
+    "hflip2": {
+      "clean": {
+        "accuracy": 0.9784,
+        "correct": 4892,
+        "count": 5000,
+        "loss": 0.07596995681524277
+      },
+      "brightness_0.7": {
+        "accuracy": 0.9764,
+        "correct": 4882,
+        "count": 5000,
+        "loss": 0.0804968774318695
+      },
+      "brightness_1.3": {
+        "accuracy": 0.976,
+        "correct": 4880,
+        "count": 5000,
+        "loss": 0.08366529643535614
+      },
+      "contrast_0.6": {
+        "accuracy": 0.9756,
+        "correct": 4878,
+        "count": 5000,
+        "loss": 0.0806090235710144
+      },
+      "grayscale": {
+        "accuracy": 0.9398,
+        "correct": 4699,
+        "count": 5000,
+        "loss": 0.22597500681877136
+      },
+      "gaussian_noise_0.05": {
+        "accuracy": 0.8142,
+        "correct": 4071,
+        "count": 5000,
+        "loss": 0.6713433265686035
+      },
+      "gaussian_blur_0.7": {
+        "accuracy": 0.9672,
+        "correct": 4836,
+        "count": 5000,
+        "loss": 0.11950010806322098
+      },
+      "translate_right_down_2": {
+        "accuracy": 0.9778,
+        "correct": 4889,
+        "count": 5000,
+        "loss": 0.07519757002592087
+      },
+      "stress_mean_accuracy": 0.9467142857142858
+    },
+    "shift_flip10": {
+      "clean": {
+        "accuracy": 0.9782,
+        "correct": 4891,
+        "count": 5000,
+        "loss": 0.07307267934083939
+      },
+      "brightness_0.7": {
+        "accuracy": 0.9774,
+        "correct": 4887,
+        "count": 5000,
+        "loss": 0.07582739740610123
+      },
+      "brightness_1.3": {
+        "accuracy": 0.9734,
+        "correct": 4867,
+        "count": 5000,
+        "loss": 0.08040356636047363
+      },
+      "contrast_0.6": {
+        "accuracy": 0.9762,
+        "correct": 4881,
+        "count": 5000,
+        "loss": 0.07807140797376633
+      },
+      "grayscale": {
+        "accuracy": 0.9424,
+        "correct": 4712,
+        "count": 5000,
+        "loss": 0.1959749311208725
+      },
+      "gaussian_noise_0.05": {
+        "accuracy": 0.817,
+        "correct": 4085,
+        "count": 5000,
+        "loss": 0.6188961267471313
+      },
+      "gaussian_blur_0.7": {
+        "accuracy": 0.9678,
+        "correct": 4839,
+        "count": 5000,
+        "loss": 0.11521970480680466
+      },
+      "translate_right_down_2": {
+        "accuracy": 0.9768,
+        "correct": 4884,
+        "count": 5000,
+        "loss": 0.07330689579248428
+      },
+      "stress_mean_accuracy": 0.9472857142857142
+    }
+  },
+  "split_path": "results/split_seed2026.npz",
+  "epoch": 20,
+  "weight_type": "raw",
+  "total_training_epochs": 420,
+  "conditions_evaluated": [
+    "clean",
+    "brightness_0.7",
+    "brightness_1.3",
+    "contrast_0.6",
+    "grayscale",
+    "gaussian_noise_0.05",
+    "gaussian_blur_0.7",
+    "translate_right_down_2"
+  ],
+  "note": "Fixed endpoint evaluation; fixed shift_flip10 comparison. Synthetic stress mean is diagnostic, not the ranking objective. No hidden-test estimate.",
+  "original_source": "results/final_sprint/deep_refinement/replica_seed62029/evaluation.json"
+}

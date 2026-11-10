@@ -1,0 +1,22 @@
+{
+  "name": "round7/pyramid110_a96_sd_seed2026",
+  "parameters": 4804512,
+  "best": {
+    "raw": {
+      "accuracy": 0.9766,
+      "loss": 0.08300202026367187,
+      "epoch": 376
+    },
+    "ema": {
+      "accuracy": 0.9764,
+      "loss": 0.08279673461914062,
+      "epoch": 390
+    }
+  },
+  "completed_epochs": 400,
+  "planned_epochs": 400,
+  "elapsed_seconds": 26142.869165600045,
+  "train_count": 45000,
+  "validation_count": 5000,
+  "status": "completed"
+}

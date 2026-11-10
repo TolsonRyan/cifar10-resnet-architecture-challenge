@@ -1,0 +1,535 @@
+{
+  "checkpoint": "runs\\final_sprint\\c3_two_seed_average\\model.pt",
+  "checkpoint_sha256": "ada2fc2fbbc0310665312412ef01b8caec98a3a3c76e9c237c83f1580d6ae9ca",
+  "parameters": 4804512,
+  "split_sha256": "6afd72a56f434e2d60afef811895439a3f41f36360aff26234ecd4e4bfc047a9",
+  "policies": {
+    "identity": {
+      "brightness_0.7": {
+        "accuracy": 0.975,
+        "correct": 4875,
+        "count": 5000,
+        "loss": 0.08827712386846542
+      },
+      "brightness_1.3": {
+        "accuracy": 0.9738,
+        "correct": 4869,
+        "count": 5000,
+        "loss": 0.09194111824035645
+      },
+      "contrast_0.6": {
+        "accuracy": 0.9744,
+        "correct": 4872,
+        "count": 5000,
+        "loss": 0.08892355114221573
+      },
+      "grayscale": {
+        "accuracy": 0.938,
+        "correct": 4690,
+        "count": 5000,
+        "loss": 0.24717074632644653
+      },
+      "gaussian_noise_0.05": {
+        "accuracy": 0.7978,
+        "correct": 3989,
+        "count": 5000,
+        "loss": 0.7756126523017883
+      },
+      "gaussian_blur_0.7": {
+        "accuracy": 0.9666,
+        "correct": 4833,
+        "count": 5000,
+        "loss": 0.1278693974018097
+      },
+      "translate_right_down_2": {
+        "accuracy": 0.9764,
+        "correct": 4882,
+        "count": 5000,
+        "loss": 0.08386440575122833
+      }
+    },
+    "shift_flip10": {
+      "brightness_0.7": {
+        "accuracy": 0.978,
+        "correct": 4890,
+        "count": 5000,
+        "loss": 0.07513847947120667
+      },
+      "brightness_1.3": {
+        "accuracy": 0.974,
+        "correct": 4870,
+        "count": 5000,
+        "loss": 0.08001064509153366
+      },
+      "contrast_0.6": {
+        "accuracy": 0.9764,
+        "correct": 4882,
+        "count": 5000,
+        "loss": 0.07780535519123077
+      },
+      "grayscale": {
+        "accuracy": 0.9436,
+        "correct": 4718,
+        "count": 5000,
+        "loss": 0.19196900725364685
+      },
+      "gaussian_noise_0.05": {
+        "accuracy": 0.8074,
+        "correct": 4037,
+        "count": 5000,
+        "loss": 0.6546868681907654
+      },
+      "gaussian_blur_0.7": {
+        "accuracy": 0.9684,
+        "correct": 4842,
+        "count": 5000,
+        "loss": 0.11462549865245819
+      },
+      "translate_right_down_2": {
+        "accuracy": 0.9768,
+        "correct": 4884,
+        "count": 5000,
+        "loss": 0.07358472049236298
+      }
+    },
+    "grid_flip18": {
+      "brightness_0.7": {
+        "accuracy": 0.9782,
+        "correct": 4891,
+        "count": 5000,
+        "loss": 0.07472813874483109
+      },
+      "brightness_1.3": {
+        "accuracy": 0.975,
+        "correct": 4875,
+        "count": 5000,
+        "loss": 0.07946917414665222
+      },
+      "contrast_0.6": {
+        "accuracy": 0.9772,
+        "correct": 4886,
+        "count": 5000,
+        "loss": 0.07704842835664749
+      },
+      "grayscale": {
+        "accuracy": 0.9438,
+        "correct": 4719,
+        "count": 5000,
+        "loss": 0.19310574233531952
+      },
+      "gaussian_noise_0.05": {
+        "accuracy": 0.8104,
+        "correct": 4052,
+        "count": 5000,
+        "loss": 0.6570386290550232
+      },
+      "gaussian_blur_0.7": {
+        "accuracy": 0.968,
+        "correct": 4840,
+        "count": 5000,
+        "loss": 0.11376900970935822
+      },
+      "translate_right_down_2": {
+        "accuracy": 0.9768,
+        "correct": 4884,
+        "count": 5000,
+        "loss": 0.07218212634325027
+      }
+    },
+    "dense_flip50": {
+      "brightness_0.7": {
+        "accuracy": 0.978,
+        "correct": 4890,
+        "count": 5000,
+        "loss": 0.07461787015199661
+      },
+      "brightness_1.3": {
+        "accuracy": 0.9756,
+        "correct": 4878,
+        "count": 5000,
+        "loss": 0.07902693003416061
+      },
+      "contrast_0.6": {
+        "accuracy": 0.9768,
+        "correct": 4884,
+        "count": 5000,
+        "loss": 0.07689836621284485
+      },
+      "grayscale": {
+        "accuracy": 0.9454,
+        "correct": 4727,
+        "count": 5000,
+        "loss": 0.19128325581550598
+      },
+      "gaussian_noise_0.05": {
+        "accuracy": 0.8118,
+        "correct": 4059,
+        "count": 5000,
+        "loss": 0.6485643982887268
+      },
+      "gaussian_blur_0.7": {
+        "accuracy": 0.9682,
+        "correct": 4841,
+        "count": 5000,
+        "loss": 0.11329040676355362
+      },
+      "translate_right_down_2": {
+        "accuracy": 0.977,
+        "correct": 4885,
+        "count": 5000,
+        "loss": 0.07207585126161575
+      }
+    }
+  },
+  "details": {
+    "brightness_0.7": {
+      "baseline10": 0.978,
+      "results": {
+        "grid_flip18": {
+          "accuracy": 0.9782,
+          "correct": 4891,
+          "count": 5000,
+          "loss": 0.07472813874483109,
+          "newly_correct": 4,
+          "newly_wrong": 3,
+          "class_net_correct": [
+            0,
+            0,
+            0,
+            1,
+            0,
+            -1,
+            0,
+            -1,
+            2,
+            0
+          ]
+        },
+        "dense_flip50": {
+          "accuracy": 0.978,
+          "correct": 4890,
+          "count": 5000,
+          "loss": 0.07461787015199661,
+          "newly_correct": 4,
+          "newly_wrong": 4,
+          "class_net_correct": [
+            0,
+            -2,
+            0,
+            1,
+            0,
+            0,
+            0,
+            -1,
+            2,
+            0
+          ]
+        }
+      },
+      "seconds": 138.0456420999999
+    },
+    "brightness_1.3": {
+      "baseline10": 0.974,
+      "results": {
+        "grid_flip18": {
+          "accuracy": 0.975,
+          "correct": 4875,
+          "count": 5000,
+          "loss": 0.07946917414665222,
+          "newly_correct": 8,
+          "newly_wrong": 3,
+          "class_net_correct": [
+            0,
+            2,
+            0,
+            3,
+            1,
+            1,
+            0,
+            1,
+            -2,
+            -1
+          ]
+        },
+        "dense_flip50": {
+          "accuracy": 0.9756,
+          "correct": 4878,
+          "count": 5000,
+          "loss": 0.07902693003416061,
+          "newly_correct": 14,
+          "newly_wrong": 6,
+          "class_net_correct": [
+            0,
+            1,
+            0,
+            4,
+            1,
+            3,
+            0,
+            -1,
+            -1,
+            1
+          ]
+        }
+      },
+      "seconds": 127.65313550000064
+    },
+    "contrast_0.6": {
+      "baseline10": 0.9764,
+      "results": {
+        "grid_flip18": {
+          "accuracy": 0.9772,
+          "correct": 4886,
+          "count": 5000,
+          "loss": 0.07704842835664749,
+          "newly_correct": 5,
+          "newly_wrong": 1,
+          "class_net_correct": [
+            -1,
+            1,
+            1,
+            1,
+            0,
+            0,
+            0,
+            0,
+            1,
+            1
+          ]
+        },
+        "dense_flip50": {
+          "accuracy": 0.9768,
+          "correct": 4884,
+          "count": 5000,
+          "loss": 0.07689836621284485,
+          "newly_correct": 8,
+          "newly_wrong": 6,
+          "class_net_correct": [
+            0,
+            1,
+            0,
+            0,
+            1,
+            0,
+            -1,
+            -1,
+            1,
+            1
+          ]
+        }
+      },
+      "seconds": 128.47139040000002
+    },
+    "grayscale": {
+      "baseline10": 0.9436,
+      "results": {
+        "grid_flip18": {
+          "accuracy": 0.9438,
+          "correct": 4719,
+          "count": 5000,
+          "loss": 0.19310574233531952,
+          "newly_correct": 10,
+          "newly_wrong": 9,
+          "class_net_correct": [
+            0,
+            0,
+            0,
+            4,
+            -2,
+            -1,
+            -2,
+            0,
+            2,
+            0
+          ]
+        },
+        "dense_flip50": {
+          "accuracy": 0.9454,
+          "correct": 4727,
+          "count": 5000,
+          "loss": 0.19128325581550598,
+          "newly_correct": 21,
+          "newly_wrong": 12,
+          "class_net_correct": [
+            -1,
+            -1,
+            2,
+            1,
+            4,
+            1,
+            0,
+            1,
+            2,
+            0
+          ]
+        }
+      },
+      "seconds": 129.1159019000006
+    },
+    "gaussian_noise_0.05": {
+      "baseline10": 0.8074,
+      "results": {
+        "grid_flip18": {
+          "accuracy": 0.8104,
+          "correct": 4052,
+          "count": 5000,
+          "loss": 0.6570386290550232,
+          "newly_correct": 26,
+          "newly_wrong": 11,
+          "class_net_correct": [
+            1,
+            1,
+            1,
+            1,
+            2,
+            0,
+            3,
+            2,
+            0,
+            4
+          ]
+        },
+        "dense_flip50": {
+          "accuracy": 0.8118,
+          "correct": 4059,
+          "count": 5000,
+          "loss": 0.6485643982887268,
+          "newly_correct": 45,
+          "newly_wrong": 23,
+          "class_net_correct": [
+            2,
+            0,
+            0,
+            2,
+            5,
+            0,
+            4,
+            3,
+            0,
+            6
+          ]
+        }
+      },
+      "seconds": 128.7305335000001
+    },
+    "gaussian_blur_0.7": {
+      "baseline10": 0.9684,
+      "results": {
+        "grid_flip18": {
+          "accuracy": 0.968,
+          "correct": 4840,
+          "count": 5000,
+          "loss": 0.11376900970935822,
+          "newly_correct": 0,
+          "newly_wrong": 2,
+          "class_net_correct": [
+            0,
+            0,
+            -1,
+            0,
+            0,
+            -1,
+            0,
+            0,
+            0,
+            0
+          ]
+        },
+        "dense_flip50": {
+          "accuracy": 0.9682,
+          "correct": 4841,
+          "count": 5000,
+          "loss": 0.11329040676355362,
+          "newly_correct": 5,
+          "newly_wrong": 6,
+          "class_net_correct": [
+            0,
+            -1,
+            -1,
+            1,
+            1,
+            -1,
+            0,
+            -1,
+            1,
+            0
+          ]
+        }
+      },
+      "seconds": 129.78807640000014
+    },
+    "translate_right_down_2": {
+      "baseline10": 0.9768,
+      "results": {
+        "grid_flip18": {
+          "accuracy": 0.9768,
+          "correct": 4884,
+          "count": 5000,
+          "loss": 0.07218212634325027,
+          "newly_correct": 1,
+          "newly_wrong": 1,
+          "class_net_correct": [
+            0,
+            0,
+            1,
+            0,
+            0,
+            0,
+            0,
+            -1,
+            0,
+            0
+          ]
+        },
+        "dense_flip50": {
+          "accuracy": 0.977,
+          "correct": 4885,
+          "count": 5000,
+          "loss": 0.07207585126161575,
+          "newly_correct": 5,
+          "newly_wrong": 4,
+          "class_net_correct": [
+            0,
+            0,
+            2,
+            0,
+            0,
+            1,
+            -1,
+            -1,
+            0,
+            0
+          ]
+        }
+      },
+      "seconds": 128.02032709999912
+    }
+  },
+  "conditions_completed": [
+    "brightness_0.7",
+    "brightness_1.3",
+    "contrast_0.6",
+    "grayscale",
+    "gaussian_noise_0.05",
+    "gaussian_blur_0.7",
+    "translate_right_down_2"
+  ],
+  "planned_conditions": [
+    "brightness_0.7",
+    "brightness_1.3",
+    "contrast_0.6",
+    "grayscale",
+    "gaussian_noise_0.05",
+    "gaussian_blur_0.7",
+    "translate_right_down_2"
+  ],
+  "complete": true,
+  "elapsed_seconds": 909.834974899999,
+  "epoch": 20,
+  "weight_type": "two_seed_fixed_weight_average",
+  "hidden_test_used": false,
+  "precision": "float32",
+  "views": "All25integer shifts[-2,2]^2 and flips, uniform probability mean. No tuned weights.",
+  "limitations": "Reused development split; synthetic stresses do not identify hidden-test distribution.",
+  "original_source": "results/final_sprint/deadline_dense/average/stress_evaluation.json"
+}

@@ -1,0 +1,139 @@
+{
+  "status": "passed",
+  "rows": 2000,
+  "columns": [
+    "id",
+    "label"
+  ],
+  "unique_ids": 2000,
+  "matches_sample_order": true,
+  "matches_test_ids": true,
+  "integer_labels_0_to_9": true,
+  "label_counts": [
+    176,
+    213,
+    205,
+    199,
+    198,
+    211,
+    187,
+    206,
+    207,
+    198
+  ],
+  "sha256": "9ad0bec166bb59bda06feb1e9be1922005bea2c8060fd790836e23e8c7386e12",
+  "checkpoint": "runs\\final_sprint\\c3_two_seed_average\\model.pt",
+  "checkpoint_sha256": "ada2fc2fbbc0310665312412ef01b8caec98a3a3c76e9c237c83f1580d6ae9ca",
+  "parameters": 4804512,
+  "total_parameters": 4804512,
+  "weight_type": "two_seed_fixed_weight_average",
+  "training_images": 45000,
+  "validation_images": 5000,
+  "total_training_epochs": 420,
+  "model_config": {
+    "name": "final_sprint/c3_replicate_seed62029",
+    "seed": 62029,
+    "architecture": "pyramid_shakedrop",
+    "depth": 110,
+    "alpha": 96,
+    "shake_death": 0.5,
+    "epochs": 20,
+    "batch_size": 128,
+    "lr": 0.002,
+    "momentum": 0.9,
+    "weight_decay": 0.0001,
+    "warmup_epochs": 0,
+    "min_lr_ratio": 0.05,
+    "ra_magnitude": 9,
+    "ra_group_size": 32,
+    "cutout_size": 16,
+    "cutout_probability": 1.0,
+    "mixup_alpha": 0.0,
+    "cutmix_alpha": 1.0,
+    "cutmix_probability": 0.0,
+    "label_smoothing": 0.0,
+    "ema_decay": 0.999,
+    "full_data": false,
+    "final_weight_type": "ema",
+    "split_path": "results/split_seed2026.npz",
+    "optimizer": "sgd",
+    "initial_checkpoint": "runs/round7/pyramid110_a96_sd_seed2026/final_ema.pt",
+    "initial_training_epochs": 400,
+    "deterministic_shakedrop_training": true
+  },
+  "normalization": {
+    "mean": [
+      0.4915135944308279,
+      0.4823147097120098,
+      0.44681383799700425
+    ],
+    "std": [
+      0.24705092701492032,
+      0.24347971893366005,
+      0.2615095063426511
+    ]
+  },
+  "checkpoint_validation": null,
+  "local_validation": {
+    "source": "results\\final_sprint\\deadline_dense\\average\\evaluation.json",
+    "single_view": {
+      "accuracy": 0.9764,
+      "correct": 4882,
+      "count": 5000,
+      "loss": 0.08261933922767639
+    },
+    "selected_tta": {
+      "accuracy": 0.979,
+      "correct": 4895,
+      "count": 5000,
+      "loss": 0.07172156870365143
+    }
+  },
+  "validated_inference_consistency": {
+    "images": 64,
+    "matching_predictions": 64,
+    "max_probability_difference": 1.043081283569336e-07,
+    "status": "passed"
+  },
+  "inference": "single model, FP32, no TF32",
+  "device": "cuda",
+  "batch_size": 64,
+  "pause_seconds_per_batch": 0.0,
+  "policy": "dense_flip50",
+  "views": 50,
+  "aggregation": "arithmetic mean of probabilities",
+  "raw_rgb_images_checked": 2000,
+  "prediction_seconds": 64.26114000000052,
+  "exporter_sha256": "df29c89dc56bcb311f13ba3649dc963a07c16743100791d3ee7425394ba3620b",
+  "tta_implementation_sha256": "b937f8e51516d440b51fc48b8a8398bc07021af8208fc4a5fc3aa36a55eebbef",
+  "created_utc": "2026-11-07T04:43:14.896075+00:00",
+  "peak_allocated_mib": 146.853515625,
+  "kaggle_submitted": true,
+  "submission_requires_user_confirmation": false,
+  "official_final_test_accuracy": 0.876,
+  "official_final_test_source": "User-confirmed final evaluation score, 2026-11-09; hidden labels unavailable locally.",
+  "weight_processing": {
+    "method": "One fixed equal average of final RAW learned tensors and floatingBNbuffers; integer buffers fromreplica.",
+    "source_hashes": {
+      "runs\\final_sprint\\deterministic20_seed62026\\final_raw.pt": "fb54479395e348483899d2933ee4e15493995342eb86ef2a0fa2fd97d0915350",
+      "runs\\final_sprint\\c3_replicate_seed62029\\final_raw.pt": "04d0607ee5acd66bb8dea6550b1dbb83bdd276f4476e1bcaad415f32929ebf01"
+    },
+    "initialization": "Both branches start fromthe same legal45kEMA400.",
+    "branch_epochs": 20,
+    "seeds": [
+      62026,
+      62029
+    ],
+    "single_inference_model": true,
+    "parameters": 4804512,
+    "hidden_test_used": false,
+    "caveat": "Averaging two training branches does not imply440epochs in a single trajectory; source lineage is retained."
+  },
+  "public_accuracy": 0.901,
+  "reproduction_check": {
+    "executed_notebook": "notebooks/final_model.ipynb",
+    "validation_correct": 4895,
+    "validation_count": 5000,
+    "submission_sha256_matches": true
+  }
+}
