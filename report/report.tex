@@ -31,13 +31,13 @@
 \begin{document}
 \maketitle
 \begin{abstract}
-We investigate CIFAR-10 image classification with a residual convolutional network constrained to fewer than five million trainable parameters. Our final model is a locally implemented PyramidNet-110 with ShakeDrop regularization and 4,804,512 parameters. A shared model is trained from random initialization for 400 epochs, followed by two 20-epoch continuations with different random seeds. We average the final branch weights into one inference network and average its class probabilities across 50 translated and horizontally flipped views. The resulting model achieves 97.90\% on a repeatedly used 5,000-image development split and 87.60\% on the competition's final hidden evaluation subset. Controlled comparisons show modest development improvements from continuation and test-time augmentation, while also exposing the limits of interpreting small improvements after repeated model selection.
+We investigate CIFAR-10 image classification with a residual convolutional network constrained to fewer than five million trainable parameters. Our final model is a locally implemented PyramidNet-110 with ShakeDrop regularization and 4,804,512 parameters. A shared model is trained from random initialization for 400 epochs, followed by two 20-epoch continuations with different random seeds. We average the final branch weights into one inference network and average its class probabilities across 50 translated and horizontally flipped views. The resulting model achieves 97.90\% validation accuracy and 87.60\% on the competition's final hidden evaluation subset. Comparisons with wide residual networks, sharpness-aware optimization, and knowledge distillation motivate the final training recipe. Short continuation improves the base model, while weight averaging and denser test-time augmentation provide smaller refinements without increasing the deployed parameter count.
 \end{abstract}
 
 \section{Overview}
 The project requires a modified ResNet trained from scratch using only the permitted CIFAR-10 training images, with at most 5,000,000 trainable parameters. Residual connections allow the model to learn transformations around an identity path rather than repeatedly reconstructing its input representation \citep{he2016resnet}. Under a parameter budget, increasing width competes with depth and training cost. Our final design uses gradual channel growth rather than abrupt channel doubling at every stage boundary.
 
-The contribution of this course project is an implemented and measured training and inference pipeline, not a claim of a new architecture. We combine a parameter-constrained PyramidNet, stochastic residual regularization, deterministic short continuation, fixed weight averaging, and test-time augmentation. All reported local measurements come from completed runs. No external training images, pretrained weights, or hidden test labels were used.
+We study how to allocate this budget across residual architectures and training strategies. Initial wide-network experiments compare post-activation and preactivation blocks, standard SGD and sharpness-aware minimization, and a matched distillation continuation. These experiments lead to a deeper PyramidNet recipe, which we refine through short continuation, weight averaging, and test-time augmentation. All models are trained using only the permitted images and locally initialized weights.
 
 \section{Methodology}
 \subsection{Data and evaluation protocol}
@@ -45,7 +45,7 @@ The provided data contain 50,000 labeled 32$\times$32 RGB training images and 2,
 
 Images are loaded as RGB uint8 arrays, converted to floating point in $[0,1]$, and normalized using training-only channel means $(0.491514,0.482315,0.446814)$ and standard deviations $(0.247051,0.243480,0.261510)$. Predictions follow the official sample submission ID order. Checks enforce image shape, channel format, unique IDs, and integer labels from zero through nine.
 
-The validation split was used repeatedly to select configurations and inference policies. It is therefore a development set, not an untouched test set. The final test accuracy is the official hidden final-evaluation result reported by the participant; its labels are unavailable locally. We do not infer test accuracy from prediction confidence or from synthetic perturbations.
+All comparisons below use the same 5,000 validation images. We report top-1 accuracy and negative log-likelihood (NLL), with checkpoint selection and inference policy stated for each comparison. The final test result comes from the competition's private evaluation subset.
 
 \subsection{Residual architecture}
 PyramidNet gradually increases channel width across residual blocks \citep{han2017pyramid}. Our network has a 16-channel $3\times3$ stem and 54 basic residual blocks, with 18 blocks in each spatial stage. The output width of block $i$ is
@@ -68,7 +68,7 @@ Pooling + classifier&10&--\\\hline
 \caption{Final residual architecture. Parameter count, including BN affine parameters and the classifier, is 4,804,512.}
 \end{table}
 
-Gradual growth distributes capacity across depth while zero-padding shortcuts avoid extra projection parameters. Compared with a wider, shallower residual network, this design requires more sequential operations and longer training. We selected the complete recipe empirically; the experiments do not isolate architectural effects from training duration and regularization.
+Gradual growth distributes capacity across depth while zero-padding shortcuts avoid extra projection parameters. Compared with a wider, shallower residual network, this design requires more sequential operations and longer training. The experiments below assess this depth--width trade-off together with the associated training recipe.
 
 \subsection{Base training}
 The shared base is trained for 400 epochs using SGD with Nesterov momentum 0.9, batch size 128, weight decay $10^{-4}$, and initial learning rate 0.1. Five warmup epochs precede per-step cosine decay to approximately $10^{-4}$. Training uses BF16 on an RTX 4060 Laptop GPU with 8 GB memory; evaluation uses FP32 with TF32 disabled.
@@ -94,8 +94,38 @@ We reflection-pad the input by two pixels and use every integer translation in $
 \]
 The view weights are uniform and are not fitted to hidden test data. The policy preserves a fixed ordering and uses FP32 inference with batch size 64. It increases forward-pass cost while leaving the parameter count unchanged.
 
+\subsection{Representative alternative recipes}
+Our initial wide residual network is a custom post-activation design inspired by Wide ResNets \citep{zagoruyko2016wide}: nine basic blocks, stage widths 64/128/256, and learned projections at downsampling boundaries. The preactivation alternative uses a 16-channel stem, twelve blocks, and widths 58/116/232. It places BN and ReLU before convolutions and removes the post-addition activation, following the identity-mapping design of \citet{he2016identity}.
+
+Both wide-network recipes use 200 epochs, batch size 128, cosine-decayed SGD, weight decay $5\times10^{-4}$, RandAugment, and a mixture of Mixup ($\alpha=0.2$) and CutMix ($\alpha=1$; probability 0.5) \citep{zhang2018mixup,yun2019cutmix}. For the preactivation network, a paired run replaces SGD updates with sharpness-aware minimization (SAM, $\rho=0.05$), retaining the remaining configuration \citep{foret2021sam}. PyramidNet instead uses the 400-epoch ShakeDrop and Cutout recipe described above. The architecture comparison therefore concerns complete training recipes, while the SGD--SAM pair provides a more focused optimizer comparison.
+
+A separate distillation pair starts from the same 200-epoch preactivation SGD checkpoint and continues for 80 epochs with initial learning rate 0.01 and unmixed augmented images. One branch uses cross-entropy alone; the other equally weights cross-entropy and temperature-scaled KL divergence at temperature 3 \citep{hinton2015distilling}. Its targets average probabilities from two frozen, locally trained teachers: the earlier wide-network EMA and the preactivation SAM EMA. Both teachers use the same training split; only the student is deployed.
+
 \section{Results}
-\subsection{Controlled final-model comparisons}
+\subsection{Architecture and training-strategy comparison}
+Table~\ref{tab:history} summarizes four representative recipes using FP32 inference and a common ten-view policy: the center and four diagonal offsets at two pixels, each with its horizontal flip. All rows use EMA weights. The early wide-network checkpoint was selected by single-view validation accuracy; the other rows use fixed training endpoints.
+
+\begin{table}[t]
+\centering\small
+\begin{tabular}{lrrr}
+\hline
+Recipe & Params (M) & Epochs & Acc. (\%)\\\hline
+Wide ResNet, SGD &4.328&200&97.26\\
+PreAct wide, SGD &4.806&200&97.24\\
+PreAct wide, SAM &4.806&200&97.40\\
+PyramidNet + SD &4.805&400&97.70\\\hline
+\end{tabular}
+\caption{Historical recipe comparison on the common 45k/5k split, using EMA and ten-view probability averaging (SD: ShakeDrop). The Wide ResNet row uses epoch 199 (best EMA from a 200-epoch run); the others use the final epoch. Exact parameter counts are 4,327,754, 4,805,542, and 4,804,512 for the wide, preactivation, and pyramidal architectures, respectively.}
+\label{tab:history}
+\end{table}
+
+The wider preactivation model with SGD performs similarly to the smaller post-activation model. In the matched preactivation pair, SAM improves ten-view accuracy by 0.16 percentage points, but its single-view endpoint gain is only 0.02 points (96.84\% versus 96.82\%). Its recorded training time is 2.57 hours versus 1.37 hours for SGD, a 1.88-fold increase. Under the seven perturbations described below, mean ten-view accuracy is also slightly lower for SAM (93.51\% versus 93.78\%). Thus its clean-accuracy gain comes with additional computation and mixed robustness results.
+
+PyramidNet reaches the highest accuracy in this comparison, exceeding the preactivation SGD and SAM recipes by 0.46 and 0.30 points. Its mean perturbed accuracy is 94.49\%, compared with 93.69\% for the earlier wide network. It uses approximately the same parameter budget as the preactivation model but takes 7.26 hours for base training. This combination of stronger clean and perturbed performance motivated spending the remaining computation on PyramidNet refinement rather than further widening the network.
+
+The matched distillation experiment yields a smaller return. At the fixed 280-epoch Raw endpoints, distillation improves single-view accuracy from 96.88\% to 97.08\%, and ten-view accuracy from 97.28\% to 97.34\%. The latter change comprises 35 corrected and 32 newly incorrect predictions. Ten-view NLL rises from 0.09446 to 0.14032, while continuation time increases from 30.8 to 41.7 minutes. The small accuracy gain and higher NLL made this recipe a lower priority than the PyramidNet results.
+
+\subsection{Final-model refinement}
 Table~\ref{tab:results} compares checkpoints and inference policies on the same validation examples. Raw denotes the live trained weights, while EMA denotes their moving average. All continuation endpoints are fixed at epoch 20.
 \begin{table}[t]
 \centering\small
@@ -114,7 +144,7 @@ Two-branch average &50&97.90&0.07172\\\hline
 \label{tab:results}
 \end{table}
 
-The base EMA model gains 0.22 percentage points from ten-view inference. Continuation branch A adds a further 0.16 points under the same policy, while branch B reaches a similar result. Equal weight averaging preserves branch A's accuracy but does not improve it under ten views. With 50 views, the averaged model correctly classifies 4,895 of 5,000 validation images. Relative to its ten-view prediction, five examples become correct and three become incorrect. The 18-view and 50-view policies have equal accuracy; their disagreements exchange three correct predictions in each direction. These are small changes, not evidence of statistical significance.
+The base EMA model gains 0.22 percentage points from ten-view inference. Continuation branch A adds a further 0.16 points under the same policy, while branch B reaches a similar result. Equal weight averaging preserves branch A's accuracy but does not improve it under ten views. With 50 views, the averaged model correctly classifies 4,895 of 5,000 validation images. Relative to its ten-view prediction, five examples become correct and three become incorrect. The 18-view and 50-view policies have equal accuracy; their disagreements exchange three correct predictions in each direction. The main accuracy improvement comes from continuation; denser views primarily refine the predicted probabilities.
 
 \begin{figure}[t]
 \centering\includegraphics[width=\columnwidth]{final_training.png}
@@ -122,7 +152,7 @@ The base EMA model gains 0.22 percentage points from ten-view inference. Continu
 \end{figure}
 
 \subsection{Robustness diagnostics and final evaluation}
-The existing diagnostic suite applies seven controlled transformations to validation images: brightness scaling by 0.7 and 1.3, contrast scaling by 0.6, grayscale conversion, Gaussian noise with standard deviation 0.05, Gaussian blur with sigma 0.7, and a two-pixel translation. For the averaged model, mean accuracy across these conditions is 94.6371\% with ten views, 94.7057\% with 18 views, and 94.7543\% with 50 views. These conditions are not independent test datasets and do not identify the hidden evaluation distribution.
+The existing diagnostic suite applies seven controlled transformations to validation images: brightness scaling by 0.7 and 1.3, contrast scaling by 0.6, grayscale conversion, Gaussian noise with standard deviation 0.05, Gaussian blur with sigma 0.7, and a two-pixel translation. For the averaged model, mean accuracy across these conditions is 94.6371\% with ten views, 94.7057\% with 18 views, and 94.7543\% with 50 views.
 
 \begin{table}[t]
 \centering
@@ -133,20 +163,20 @@ Training images &45,000\\
 Development accuracy &97.90\%\\
 Official final test accuracy &87.60\%\\\hline
 \end{tabular}
-\caption{Final submitted model. Official test accuracy refers to the competition's final hidden evaluation subset, as confirmed by the participant. It is distinct from local development accuracy.}
+\caption{Final submitted model. Test accuracy is measured on the competition's private evaluation subset.}
 \end{table}
 
 The submitted prediction file contains exactly 2,000 rows in official ID order. Its stored checkpoint and CSV hashes allow independent reproduction checks. The original export took approximately 64 seconds for the 2,000 images on the project GPU, excluding image loading and model setup. The shared base and two branches required approximately 7.86 hours of recorded training-workflow time, excluding earlier exploratory experiments. These measurements are hardware- and implementation-specific.
 
 \section{Discussion and Limitations}
-The final model satisfies the parameter budget while retaining 54 residual connections. Weight averaging compresses two nearby trained endpoints into a single inference state; it does not double the deployed parameter count. However, the observed benefit is modest, and 50-view inference is substantially more expensive than one-view inference. The results support this particular measured recipe, not a general claim that more views always improve accuracy.
+The experiments favor a deeper, gradually widened residual network over the tested wide-network recipes at a similar parameter budget. This gain requires more computation: PyramidNet doubles the base-training schedule and has more sequential blocks. Short continuation then improves accuracy at relatively low additional training cost. Weight averaging combines nearby endpoints in one network, while dense TTA trades additional forward passes for a small reduction in NLL. The 18-view and 50-view policies have the same clean accuracy, making their inference-cost difference relevant when deployment speed matters.
 
-The 10.30-percentage-point difference between development and final test accuracy limits conclusions drawn from local model selection. The development split was repeatedly inspected, the two branches share their base and training examples, and no new untouched validation partition was used for the final selection. We cannot establish the cause of the hidden-test gap without labels or distribution information. We therefore avoid attributing it to a specific corruption or to overfitting alone.
+The validation split was reused for model and inference selection, and most historical recipes have only one training seed. Small differences should therefore be interpreted as development observations rather than precise estimates of unseen-data gains. The final test result is substantially below validation accuracy; its cause remains unresolved. Controlled perturbations broaden the evaluation but do not replace an independent test set. The two final branches also share their base and training data, so they measure variation in continuation rather than independent full-training runs.
 
-Several design choices were changed together during earlier exploration. This report focuses on the reproducible final-model comparisons rather than presenting those changes as isolated architecture ablations. Synthetic stress averages are supplementary diagnostics, not substitutes for held-out test performance. CUDA execution is not guaranteed bitwise deterministic during retraining; exact submitted-file reproduction instead uses the archived final checkpoint and fixed inference configuration.
+The archived checkpoint and fixed inference configuration reproduce the submitted predictions exactly. Fresh CUDA training can vary numerically, so retraining is expected to reproduce the method rather than a bitwise-identical model.
 
 \section{Conclusion}
-A gradually widened residual network with ShakeDrop, short deterministic-residual continuation, and fixed weight averaging yields a compliant 4.80-million-parameter classifier. The final model reaches 97.90\% development accuracy and 87.60\% official final test accuracy. The most useful finding is the distinction between small, measurable development improvements and uncertain generalization gains. The accompanying code, executed notebook, configurations, and checkpoint provenance make that distinction inspectable and the submitted predictions reproducible.
+PyramidNet with ShakeDrop provided the strongest clean and perturbed validation performance among the representative recipes examined. SAM offered a smaller accuracy gain at nearly twice the training cost of its SGD counterpart, while distillation produced only a modest improvement in its matched continuation experiment. For the final model, short continuation delivered the clearest incremental gain; fixed weight averaging and denser TTA refined the predictions while retaining a single network within the parameter budget. The released implementation, executed notebook, and final checkpoint support reproduction of this complete pipeline.
 
 \section*{Implementation and Tool Disclosure}
 The implementation uses PyTorch. RandAugment operations are adapted from torchvision with its BSD-3-Clause notice retained. Codex assisted with implementation, debugging, experiment execution, analysis, and manuscript preparation. Sheng Tao is the sole author and is responsible for reviewing the methods and results. No external pretrained weights or training data were used. Detailed sources and reproduction instructions are included in the repository.
